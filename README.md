@@ -1,2 +1,2 @@
-# Bitirme_prejem
- Araç kiralama sistemi
+# Bitirme_projesi
+ araç kiralama sistemi
