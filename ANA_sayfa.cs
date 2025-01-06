@@ -41,7 +41,6 @@ namespace proje
             // Kayıt ol butonu
             sign_up kayıtOl = new sign_up();
             kayıtOl.Show();
-            this.Hide(); // Ana sayfayı gizle
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -49,7 +48,6 @@ namespace proje
             // Giriş yap butonu
             sign_in girisYap = new sign_in();
             girisYap.Show();
-            this.Hide(); // Ana sayfayı gizle
         }
 
         private void button6_Click(object sender, EventArgs e)
