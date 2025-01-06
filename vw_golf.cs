@@ -5,17 +5,17 @@ using System.Windows.Forms;
 
 namespace proje
 {
-    public partial class SEAT_LEON : Form
+    public partial class vw_golf : Form
     {
         private decimal fiyat; // Araç fiyatını tutmak için değişken
-        private const int SigortaUcreti = 500; // Sigorta ücreti sabit değer
+        private const int SigortaUcreti = 700; // Sigorta ücreti sabit değer
 
-        public SEAT_LEON()
+        public vw_golf()
         {
             InitializeComponent();
         }
 
-        private void SEAT_LEON_Load(object sender, EventArgs e)
+        private void vw_golf_Load(object sender, EventArgs e)
         {
             // Başlangıçta sigorta var olarak ayarlıyoruz
             radioButton1.Checked = true;
@@ -74,6 +74,7 @@ namespace proje
         {
             Close(); // Formu kapat
         }
+        // Bu metod fiyatı veritabanından alır
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -86,7 +87,7 @@ namespace proje
             try
             {
                 int kullaniciId = Session.userid; // Oturum açmış kullanıcının ID'si
-                int aracId = 1; // Örnek: SEAT LEON araç ID'si
+                int aracId = 3; // Örnek: golf araç ID'si
                 DateTime baslangicTarihi = DateTime.Now; // Kiralama başlangıç tarihi
                 int gunSayisi = int.Parse(textBox1.Text); // Kullanıcının girdiği gün sayısı
                 DateTime bitisTarihi = baslangicTarihi.AddDays(gunSayisi);

@@ -14,6 +14,7 @@ namespace proje
 {
     public partial class Form1 : Form
     {
+        private string username;
         public Form1()
         {
             InitializeComponent();
@@ -33,12 +34,14 @@ namespace proje
         {
             sign_up f2 = new sign_up();
             f2.Show();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             sign_in f2 = new sign_in();
             f2.Show();
+            this.Close();
         }
     }
 }

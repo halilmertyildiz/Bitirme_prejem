@@ -1,4 +1,4 @@
-﻿namespace proje
+﻿/*namespace proje
 {
     partial class mail_doğrulama
     {
@@ -75,7 +75,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(138, 47);
             this.button2.TabIndex = 3;
-            this.button2.Text = "MAİN MENU";
+            this.button2.Text = "MAİN MENÜ";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -107,3 +107,4 @@
         private System.Windows.Forms.Button button2;
     }
 }
+*/

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Drawing;
 using System.Net;
 using System.Net.Mail;
@@ -75,3 +75,4 @@ namespace proje
         }
     }
 }
+*/

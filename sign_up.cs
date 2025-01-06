@@ -35,49 +35,83 @@ namespace proje
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private  void button1_Click(object sender, EventArgs e)
         {
-            string isim = textBox2.Text;
-            string soyisim = textBox4.Text;
-            string username = textBox1.Text;
-            string password = textBox3.Text;
-            string email = textBox5.Text;
+                string isim = textBox2.Text.Trim();
+                string soyisim = textBox4.Text.Trim();
+                string username = textBox1.Text.Trim();
+                string password = textBox3.Text.Trim();
+                string email = textBox5.Text.Trim();
 
-            mail_doğrulama mailcheck = new mail_doğrulama();
-            mailcheck.Show();
+                // Veritabanı bağlantısı
+                MySqlConnection baglan = new MySqlConnection(
+                    "server=localhost;" +
+                    "database=proje;" +
+                    "user=root;" +
+                    "password=123456"
+                );
+
+                try
+                {
+                    baglan.Open();
+
+                    // SQL sorgusu - kayıt ekleme
+                    string sql = "INSERT INTO kullanicilar (isim, soyisim, k_ad, sifre, mail, rol) " +
+                                 "VALUES (@isim, @soyisim, @username, @password, @mail, 'kullanici')";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, baglan))
+                    {
+                        cmd.Parameters.AddWithValue("@isim", isim);
+                        cmd.Parameters.AddWithValue("@soyisim", soyisim);
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password); // Şifre hashlenmiş olmalı!
+                        cmd.Parameters.AddWithValue("@mail", email);
+
+                        cmd.ExecuteNonQuery(); // Sorguyu çalıştır
+                    }
+
+                    // Başarı mesajı
+                    DialogResult result = MessageBox.Show(
+                        "Kayıt başarılı! Giriş formuna yönlendiriliyorsunuz.",
+                        "Bilgi",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    // Eğer kullanıcı "Tamam" derse giriş formuna geçiş yap
+                    if (result == DialogResult.OK)
+                    {
+                        sign_in sign_İn = new sign_in(); // Giriş formu sınıfınız
+                        sign_İn.Show(); // Yeni formu aç
+                        this.Close(); // Mevcut formu kapat
+                    }
+                }
+                catch (MySqlException ex) when (ex.Number == 1062)
+                {
+                    // Kullanıcı adı veya email zaten kayıtlıysa
+                    MessageBox.Show("Bu kullanıcı adı veya e-posta zaten kayıtlı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    // Diğer hatalar
+                    MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Bağlantıyı kapat
+                    if (baglan.State == System.Data.ConnectionState.Open)
+                    {
+                        baglan.Close();
+                    }
+                }
             
-            MySqlConnection baglan = new MySqlConnection(
-            "server=localhost;" +
-            "database=proje;" +
-            "user=root;" +
-            "password=123456"
-            );
 
-            try
-            {
-                baglan.Open();
-                string sql = "insert into kullanicilar(isim,soyisim,k_ad,sifre,mail) " +
-                    "values(@isim , @soyisim , @username , @password , @mail)";
 
-                MySqlCommand cmd = new MySqlCommand(sql, baglan);
+        }
 
-                // Parametreler atandı
-                cmd.Parameters.AddWithValue("@isim", isim);
-                cmd.Parameters.AddWithValue("@soyisim", soyisim);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@mail", email);
-
-                // Sorgu çalıştırılıyor
-                cmd.ExecuteNonQuery();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            mail_doğrulama f2 = new mail_doğrulama();
-            f2.Show();
+        private void button1_Click1(object sender, EventArgs e)
+        {
+            
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
@@ -189,6 +223,11 @@ namespace proje
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sign_up_Load(object sender, EventArgs e)
         {
 
         }
