@@ -27,9 +27,7 @@ namespace proje
             {
                 try
                 {
-                    connection.Open();
-
-                    // Kiralanan araçlar ile ilgili sorgu
+                    connection.Open(); // Veritabanına bağlantı aç
                     string query = @"
                         SELECT 
                             ka.kiralanan_araclar_id AS 'Kiralama ID',
@@ -48,12 +46,12 @@ namespace proje
                         ORDER BY 
                             ka.kiralanan_araclar_id DESC";
 
-                    // Sorguyu çalıştır ve sonucu DataGridView'e yükle
+                    // Verileri almak için MySqlDataAdapter kullan
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                     DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
+                    adapter.Fill(dataTable); // Verileri tabloya doldur
 
-                    // DataGridView'e verileri bağla
+                    // Verileri DataGridView'e bağla
                     dataGridView1.DataSource = dataTable;
                 }
                 catch (Exception ex)

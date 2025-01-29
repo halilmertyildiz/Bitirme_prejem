@@ -32,6 +32,7 @@
             this.buttonGuncelle = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.buttonYenile = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,11 +85,22 @@
             this.buttonYenile.Text = "YENİLE";
             this.buttonYenile.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(654, 388);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 46);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "kiralar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // AdminSayfasi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 446);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonYenile);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.buttonGuncelle);
@@ -109,5 +121,6 @@
         private System.Windows.Forms.Button buttonGuncelle;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button buttonYenile;
+        private System.Windows.Forms.Button button1;
     }
 }

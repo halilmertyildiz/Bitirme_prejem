@@ -12,47 +12,43 @@ namespace proje
 
         private void ANA_sayfa_Load(object sender, EventArgs e)
         {
-            // Sayfa yüklendiğinde kullanıcı giriş durumuna göre butonları ayarla
             KullaniciDurumunuGuncelle();
         }
 
         private void KullaniciDurumunuGuncelle()
         {
-            if (Session.IsLoggedIn) // Kullanıcı giriş yaptıysa
+            if (Session.IsLoggedIn) 
             {
                 label2.Text = $"{Session.Username}";
-                label2.Visible = true;  // Kullanıcı adı göster
-                button6.Visible = true; // Çıkış butonu göster
-                button1.Visible = false; // Kayıt ol butonu gizle
-                button2.Visible = false; // Giriş yap butonu gizle
+                label2.Visible = true; 
+                button6.Visible = true;
+                button1.Visible = false; 
+                button2.Visible = false; 
             }
-            else // Kullanıcı giriş yapmadıysa
+            else 
             {
                 label2.Text = string.Empty;
-                label2.Visible = false; // Kullanıcı adı gizle
-                button6.Visible = false; // Çıkış butonu gizle
-                button1.Visible = true;  // Kayıt ol butonu göster
-                button2.Visible = true;  // Giriş yap butonu göster
+                label2.Visible = false;
+                button6.Visible = false; 
+                button1.Visible = true;  
+                button2.Visible = true;  
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Kayıt ol butonu
             sign_up kayıtOl = new sign_up();
             kayıtOl.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // Giriş yap butonu
             sign_in girisYap = new sign_in();
             girisYap.Show();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            // Çıkış yap butonu
             Session.IsLoggedIn = false;
             Session.Username = string.Empty;
 

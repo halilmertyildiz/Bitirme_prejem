@@ -16,10 +16,9 @@ namespace proje
             InitializeComponent();
         }
 
-        // Placeholder temizleme
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            if (textBox1.Text == "username")
+            if (textBox1.Text == "kullanıcı adı")
             {
                 textBox1.Text = "";
                 textBox1.ForeColor = Color.White;
@@ -30,14 +29,14 @@ namespace proje
         {
             if (string.IsNullOrEmpty(textBox1.Text))
             {
-                textBox1.Text = "username";
+                textBox1.Text = "kullanıcı adı";
                 textBox1.ForeColor = Color.Silver;
             }
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
-            if (textBox2.Text == "password")
+            if (textBox2.Text == "şifre")
             {
                 textBox2.Text = "";
                 textBox2.ForeColor = Color.White;
@@ -49,7 +48,7 @@ namespace proje
         {
             if (string.IsNullOrEmpty(textBox2.Text))
             {
-                textBox2.Text = "password";
+                textBox2.Text = "şifre";
                 textBox2.ForeColor = Color.Silver;
                 textBox2.PasswordChar = '\0';
             }
@@ -66,7 +65,6 @@ namespace proje
                 {
                     baglan.Open();
 
-                    // Kullanıcı doğrulama sorgusu
                     string sql = "SELECT id, k_ad, rol FROM kullanicilar WHERE k_ad = @username AND sifre = @password;";
                     MySqlCommand komut = new MySqlCommand(sql, baglan);
                     komut.Parameters.AddWithValue("@username", username);
@@ -74,17 +72,15 @@ namespace proje
 
                     using (MySqlDataReader reader = komut.ExecuteReader())
                     {
-                        if (reader.Read()) // Kullanıcı bulunduysa
+                        if (reader.Read()) // Kullanıcı varsa
                         {
-                            // Kullanıcı bilgilerini oturum değişkenlerine kaydet
-                            Session.userid = reader.GetInt32("id"); // Kullanıcı ID'si
-                            Session.Username = reader.GetString("k_ad"); // Kullanıcı adı
+                            Session.userid = reader.GetInt32("id"); 
+                            Session.Username = reader.GetString("k_ad"); 
                             Session.IsLoggedIn = true;
 
-                            string userRole = reader.GetString("rol"); // Kullanıcı rolü
+                            string userRole = reader.GetString("rol"); 
                             MessageBox.Show($"Giriş başarılı!\nKullanıcı: {Session.Username}\nRol: {userRole}", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            // Rolüne göre yönlendirme
                             if (userRole == "admin")
                             {
                                 AdminSayfasi adminSayfasi = new AdminSayfasi();
@@ -96,7 +92,7 @@ namespace proje
                                 anaSayfa.Show();
                             }
 
-                            this.Hide(); // Giriş formunu gizle
+                            this.Hide(); 
                         }
                         else
                         {
@@ -114,6 +110,11 @@ namespace proje
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
     }

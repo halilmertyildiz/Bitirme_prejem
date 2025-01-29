@@ -43,7 +43,6 @@ namespace proje
                 string password = textBox3.Text.Trim();
                 string email = textBox5.Text.Trim();
 
-                // Veritabanı bağlantısı
                 MySqlConnection baglan = new MySqlConnection(
                     "server=localhost;" +
                     "database=proje;" +
@@ -55,7 +54,7 @@ namespace proje
                 {
                     baglan.Open();
 
-                    // SQL sorgusu - kayıt ekleme
+                    
                     string sql = "INSERT INTO kullanicilar (isim, soyisim, k_ad, sifre, mail, rol) " +
                                  "VALUES (@isim, @soyisim, @username, @password, @mail, 'kullanici')";
 
@@ -64,13 +63,13 @@ namespace proje
                         cmd.Parameters.AddWithValue("@isim", isim);
                         cmd.Parameters.AddWithValue("@soyisim", soyisim);
                         cmd.Parameters.AddWithValue("@username", username);
-                        cmd.Parameters.AddWithValue("@password", password); // Şifre hashlenmiş olmalı!
+                        cmd.Parameters.AddWithValue("@password", password); 
                         cmd.Parameters.AddWithValue("@mail", email);
 
-                        cmd.ExecuteNonQuery(); // Sorguyu çalıştır
+                        cmd.ExecuteNonQuery(); 
                     }
 
-                    // Başarı mesajı
+                    
                     DialogResult result = MessageBox.Show(
                         "Kayıt başarılı! Giriş formuna yönlendiriliyorsunuz.",
                         "Bilgi",
@@ -78,27 +77,23 @@ namespace proje
                         MessageBoxIcon.Information
                     );
 
-                    // Eğer kullanıcı "Tamam" derse giriş formuna geçiş yap
                     if (result == DialogResult.OK)
                     {
-                        sign_in sign_İn = new sign_in(); // Giriş formu sınıfınız
-                        sign_İn.Show(); // Yeni formu aç
-                        this.Close(); // Mevcut formu kapat
+                        sign_in sign_İn = new sign_in(); 
+                        sign_İn.Show(); 
+                        this.Close(); 
                     }
                 }
                 catch (MySqlException ex) when (ex.Number == 1062)
                 {
-                    // Kullanıcı adı veya email zaten kayıtlıysa
                     MessageBox.Show("Bu kullanıcı adı veya e-posta zaten kayıtlı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    // Diğer hatalar
                     MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    // Bağlantıyı kapat
                     if (baglan.State == System.Data.ConnectionState.Open)
                     {
                         baglan.Close();
@@ -116,7 +111,7 @@ namespace proje
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            if(textBox1.Text == "username")
+            if(textBox1.Text == "kullanıcı adı")
             {
                 textBox1.Text = "";
                 textBox1.ForeColor = Color.White;
@@ -127,14 +122,14 @@ namespace proje
         {
             if (textBox1.Text == "")
             {
-                textBox1.Text = "username";
+                textBox1.Text = "kullanıcı adı";
                 textBox1.ForeColor = Color.Silver;
             }
         }
 
         private void textBox3_Enter(object sender, EventArgs e)
         {
-            if (textBox3.Text == "password")
+            if (textBox3.Text == "şifre")
             {
                 textBox3.Text = "";
                 textBox3.ForeColor = Color.White;
@@ -147,7 +142,7 @@ namespace proje
         {
             if (textBox3.Text == "")
             {
-                textBox3.Text = "password";
+                textBox3.Text = "şifre";
                 textBox3.ForeColor = Color.Silver;
                 textBox3.PasswordChar = Convert.ToChar(none);
             }

@@ -7,7 +7,6 @@ namespace proje
 {
     public partial class AdminSayfasi : Form
     {
-        // Veritabanı bağlantı dizesi
         private string connectionString = "Server=localhost;Database=proje;Uid=root;Pwd=123456;";
 
         public AdminSayfasi()
@@ -15,13 +14,11 @@ namespace proje
             InitializeComponent();
         }
 
-        // Form yüklendiğinde araçları listele
         private void AdminSayfasi_Load(object sender, EventArgs e)
         {
             AraclariListele();
         }
 
-        // Araçları listeleme metodu
         private void AraclariListele()
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -44,13 +41,11 @@ namespace proje
             }
         }
 
-        // Yenile butonu tıklandığında araç listesini yenile
         private void buttonYenile_Click(object sender, EventArgs e)
         {
             AraclariListele();
         }
 
-        // Güncelle butonu tıklandığında seçilen aracın fiyatını güncelle
         private void buttonGuncelle_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
@@ -59,7 +54,6 @@ namespace proje
                 return;
             }
 
-            // Seçilen satırdan bilgileri al
             DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
             int aracId = Convert.ToInt32(selectedRow.Cells["ID"].Value);
             string aracAdi = selectedRow.Cells["Araç Adı"].Value.ToString();
@@ -83,7 +77,7 @@ namespace proje
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Fiyat başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        AraclariListele(); // Listeyi güncelle
+                        AraclariListele(); 
                     }
                     catch (Exception ex)
                     {
@@ -114,6 +108,11 @@ namespace proje
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
             kiralar kiralar = new kiralar();
             kiralar.Show(); 

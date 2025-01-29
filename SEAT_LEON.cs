@@ -7,8 +7,8 @@ namespace proje
 {
     public partial class SEAT_LEON : Form
     {
-        private decimal fiyat; // Araç fiyatını tutmak için değişken
-        private const int SigortaUcreti = 500; // Sigorta ücreti sabit değer
+        private decimal fiyat; 
+        private const int SigortaUcreti = 500; 
 
         public SEAT_LEON()
         {
@@ -17,62 +17,62 @@ namespace proje
 
         private void SEAT_LEON_Load(object sender, EventArgs e)
         {
-            // Başlangıçta sigorta var olarak ayarlıyoruz
+            
             radioButton1.Checked = true;
 
-            // Fiyatı sabit olarak belirliyoruz
-            fiyat = 500; // Fiyat sabit, veritabanı kullanmıyorsak buradaki değeri değiştirebilirsiniz
+            
+            fiyat = 500; 
         }
 
-        // Kiralama ücretini hesaplayan metod
+       
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             UpdateTotalPrice();
         }
 
-        // RadioButton'lar değiştiğinde fiyatı güncelleyen metod
+        
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateTotalPrice(); // Sigorta var ya da yok değiştiğinde fiyatı güncelle
+            UpdateTotalPrice(); 
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateTotalPrice(); // Sigorta var ya da yok değiştiğinde fiyatı güncelle
+            UpdateTotalPrice(); 
         }
 
-        // Fiyat hesaplamalarını yapan metod
+        
         private void UpdateTotalPrice()
         {
-            // Eğer gün sayısı geçerli bir sayıysa
+            
             if (int.TryParse(textBox1.Text, out int gunSayisi) && gunSayisi > 0)
             {
                 decimal toplam = fiyat * gunSayisi;
 
-                // Sigorta varsa
+               
                 if (radioButton1.Checked)
                 {
                     toplam += SigortaUcreti * gunSayisi;
                 }
 
-                // Sigorta yoksa
+                
                 if (radioButton2.Checked)
                 {
-                    toplam += 0; // Sigorta yok, ek ücret eklenmez
+                    toplam += 0; 
                 }
 
-                // Toplam fiyatı textbox2'ye yazdırıyoruz
-                textBox2.Text = toplam.ToString("C"); // C: Para birimi formatı
+                
+                textBox2.Text = toplam.ToString("C"); 
             }
             else
             {
-                textBox2.Clear(); // Geçersiz değer girildiğinde fiyatı temizle
+                textBox2.Clear(); 
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close(); // Formu kapat
+            Close(); 
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -85,14 +85,14 @@ namespace proje
 
             try
             {
-                int kullaniciId = Session.userid; // Oturum açmış kullanıcının ID'si
-                int aracId = 1; // Örnek: SEAT LEON araç ID'si
-                DateTime baslangicTarihi = DateTime.Now; // Kiralama başlangıç tarihi
-                int gunSayisi = int.Parse(textBox1.Text); // Kullanıcının girdiği gün sayısı
+                int kullaniciId = Session.userid; 
+                int aracId = 1; 
+                DateTime baslangicTarihi = DateTime.Now; 
+                int gunSayisi = int.Parse(textBox1.Text); 
                 DateTime bitisTarihi = baslangicTarihi.AddDays(gunSayisi);
                 decimal toplamUcret = fiyat * gunSayisi;
 
-                if (radioButton1.Checked) // Sigorta eklenmişse
+                if (radioButton1.Checked) 
                 {
                     toplamUcret += SigortaUcreti * gunSayisi;
                 }
@@ -108,8 +108,8 @@ namespace proje
 
                     using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
-                        cmd.Parameters.AddWithValue("@kullaniciId", kullaniciId); // Kullanıcı ID'si
-                        cmd.Parameters.AddWithValue("@aracId", aracId);          // Araç ID'si
+                        cmd.Parameters.AddWithValue("@kullaniciId", kullaniciId); 
+                        cmd.Parameters.AddWithValue("@aracId", aracId);          
                         cmd.Parameters.AddWithValue("@baslangic", baslangicTarihi);
                         cmd.Parameters.AddWithValue("@bitis", bitisTarihi);
                         cmd.Parameters.AddWithValue("@toplamUcret", toplamUcret);
